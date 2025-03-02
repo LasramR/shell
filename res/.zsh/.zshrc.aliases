@@ -1,0 +1,15 @@
+# ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Neovim aliases
+alias nv='nvim'
+alias nvw='nvim .'
+
+# Git aliases
+alias g='git'
+
+# Kill Konsole
+alias kk="killall konsole"
+
