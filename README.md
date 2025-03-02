@@ -6,6 +6,14 @@ This is my shell setup that I use daily, it includes:
 * fzf
 * some git tweaks
 
+## Installation
+
+To use my terminal setup, you can run:
+
+```bash
+git clone https://github.com/LasramR/shell.git "$HOME/lasram-shell" && cd "$HOME/lasram-shell" && ./setup.sh
+```
+
 ## Features
 
 * [zsh](https://www.zsh.org/): extended bash shell
