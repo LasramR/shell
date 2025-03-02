@@ -33,7 +33,7 @@ git clone https://github.com/LasramR/shell.git "$HOME/lasram-shell" && cd "$HOME
 
 ## Zsh theme (lasramr)
 
-TODO: add gif
+![LasramR theme](./assets/theme.gif)
 
 * prompt: user, path, datetime 
 * git prompt: current branch, rebase status, file changes
