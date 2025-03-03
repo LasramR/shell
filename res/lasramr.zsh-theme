@@ -35,11 +35,13 @@ ZGIT_PROMPT_INFO_CACHE=""
 ZGIT_PREFIX=" [git:"
 ZGIT_SUFFIX="]"
 ZGIT_COLOR="$FG[135]"
+ZGIT_STATUS_COLOR="$FG[196]"
+ZGIT_STATUS_STAGING_COLOR="$FG[227]"
 ZGIT_BRANCH_COLOR="$FG[203]"
 ZGIT_REBASE_COLOR="$FG[123]"
 
 zgit_prompt_info() {
-  local git_dir branch gsp_out modified untracked deleted
+  local git_dir branch 
 
   branch=$(git symbolic-ref --short HEAD 2>/dev/null)
   [[ -z $branch ]] && ZGIT_PROMPT_INFO_CACHE="" && return;
@@ -48,20 +50,33 @@ zgit_prompt_info() {
   ZGIT_PROMPT_INFO_CACHE+="$ZGIT_BRANCH_COLOR$branch%{$reset_color%}"
 
   git_dir=$(git rev-parse --git-dir 2>/dev/null)
+
   if [[ -v ZGIT_SHOW_REBASE ]] && [[ ! $ZGIT_SHOW_REBASE == 0 ]] && [[ -d "$git_dir/rebase-merge" ]]; then
-    local rebase_current_step=$(cat "$git_dir/rebase-merge/msgnum" 2>/dev/null || echo "?")
-    local rebase_total_steps=$(cat "$git_dir/rebase-merge/end" 2>/dev/null || echo "?")
+    local rebase_current_step rebase_total_steps
+
+    rebase_current_step=$(cat "$git_dir/rebase-merge/msgnum" 2>/dev/null || echo "?")
+    rebase_total_steps=$(cat "$git_dir/rebase-merge/end" 2>/dev/null || echo "?")
+
     ZGIT_PROMPT_INFO_CACHE+="|$(echo $ZGIT_REBASE_COLOR)REBASING $rebase_current_step/$rebase_total_steps%{$reset_color%}"
   fi
 
   if [[ -v ZGIT_SHOW_STATUS ]] && [[ ! $ZGIT_SHOW_STATUS == 0 ]]; then
+    local gsp_out modified untracked deleted staged
+
     gsp_out=$(git status --porcelain 2>/dev/null)
 
-    modified=$(echo "$gsp_out" | grep -c '^ M')   # Modified
+    modified=$(echo "$gsp_out" | grep -Ec '^\s?M')   # Modified
     untracked=$(echo "$gsp_out" | grep -c '^??') # Untracked
-    deleted=$(echo "$gsp_out" | grep -c '^ D') # Deleted
+    deleted=$(echo "$gsp_out" | grep -c '^\s?D') # Deleted
+    staged=$(echo "$gsp_out" | grep -c '^[MADRC] ') # Staged for commit
 
-    ZGIT_PROMPT_INFO_CACHE+="$ZGIT_COLOR ~$modified +$untracked -$deleted%{$reset_color%}"
+    if (( modified + untracked + deleted + staged != 0 )); then
+        local  ZGIT_PROMPT_STATUS_COLOR
+        
+        ZGIT_PROMPT_STATUS_COLOR=$([[ $staged -eq 0 ]] && echo "$ZGIT_STATUS_COLOR" || echo "$ZGIT_STATUS_STAGING_COLOR")
+
+        ZGIT_PROMPT_INFO_CACHE+="$ZGIT_PROMPT_STATUS_COLOR ~$modified +$untracked -$deleted%{$reset_color%}"
+    fi
   fi
   ZGIT_PROMPT_INFO_CACHE+="$ZGIT_COLOR$ZGIT_SUFFIX%{$reset_color%}"
 }

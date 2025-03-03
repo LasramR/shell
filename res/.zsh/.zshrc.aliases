@@ -10,6 +10,9 @@ alias nvw='nvim .'
 # Git aliases
 alias g='git'
 
+# Reload zsh
+alias src="source $HOME/.zshrc"
+
 # Kill Konsole
 alias kk="killall konsole"
 
