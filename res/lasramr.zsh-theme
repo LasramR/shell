@@ -66,7 +66,7 @@ zgit_prompt_info() {
     gsp_out=$(git status --porcelain 2>/dev/null)
 
     modified=$(echo "$gsp_out" | grep -Ec '^\s?M')   # Modified
-    untracked=$(echo "$gsp_out" | grep -c '^??') # Untracked
+    untracked=$(echo "$gsp_out" | grep -Ec '^(\?\?)|A') # Untracked
     deleted=$(echo "$gsp_out" | grep -c '^\s?D') # Deleted
     staged=$(echo "$gsp_out" | grep -c '^[MADRC] ') # Staged for commit
 
