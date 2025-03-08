@@ -1,6 +1,7 @@
 # FZF
-echo "🔧 Installing fzf"
+echo "🔧 Configuring fzf"
 if [ ! -d "$HOME/.fzf" ]; then
+    echo "fzf not found, installing"
     git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
     $HOME/.fzf/install
 else
@@ -79,6 +80,15 @@ cp -rT res/.zsh $HOME/.zsh
 
 ## zsh theme
 cp res/lasramr.zsh-theme  $HOME/.oh-my-zsh/themes
+
+# Tmux
+echo "🔧 Configuring tmux"
+if ! command -v tmux > /dev/null 2>&1; then
+    echo "tmux not found, installing"
+    sudo apt install tmux
+fi
+
+cp res/.tmux.conf $HOME/.tmux.conf
 
 echo "🚀 Ready to go!"
 
