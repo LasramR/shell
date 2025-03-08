@@ -16,6 +16,7 @@ alias nvw='nvim .'
 # Tmux aliases
 alias t='tmux'
 alias tsrc="tmux source-file $HOME/.tmux.conf"
+alias tdev="tmux new-session -s dev 'nvim .' \; split-window -l 15% \; || tmux attach-session -t dev"
 
 # bat alias
 alias bat='batcat'
