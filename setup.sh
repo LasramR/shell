@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # FZF
 echo "🔧 Configuring fzf"
 if [ ! -d "$HOME/.fzf" ]; then
