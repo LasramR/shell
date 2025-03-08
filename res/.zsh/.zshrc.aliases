@@ -3,16 +3,23 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# Git aliases
+alias g='git'
+
+# Kill Konsole
+alias kk='killall konsole'
+
 # Neovim aliases
 alias nv='nvim'
 alias nvw='nvim .'
 
-# Git aliases
-alias g='git'
+# Tmux aliases
+alias t='tmux'
+alias tsrc="tmux source-file $HOME/.tmux.conf"
+
+# bat alias
+alias bat='batcat'
 
 # Reload zsh
 alias src="source $HOME/.zshrc"
-
-# Kill Konsole
-alias kk="killall konsole"
 

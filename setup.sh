@@ -4,8 +4,6 @@ if [ ! -d "$HOME/.fzf" ]; then
     echo "fzf not found, installing"
     git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
     $HOME/.fzf/install
-else
-    echo "FZF already installed, skipping"
 fi
 
 # Git
@@ -89,6 +87,13 @@ if ! command -v tmux > /dev/null 2>&1; then
 fi
 
 cp res/.tmux.conf $HOME/.tmux.conf
+
+# Bat
+echo "🔧 Configuring bat"
+if ! command -v batcat > /dev/null 2>&1; then
+    echo "bat not found, installing"
+    sudo apt install bat
+fi
 
 echo "🚀 Ready to go!"
 
