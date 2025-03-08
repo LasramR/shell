@@ -67,7 +67,7 @@ zgit_prompt_info() {
 
     modified=$(echo "$gsp_out" | grep -Ec '^\s?M')   # Modified
     untracked=$(echo "$gsp_out" | grep -Ec '^(\?\?)|A') # Untracked
-    deleted=$(echo "$gsp_out" | grep -c '^\s?D') # Deleted
+    deleted=$(echo "$gsp_out" | grep -Ec '^\s?D') # Deleted
     staged=$(echo "$gsp_out" | grep -c '^[MADRC] ') # Staged for commit
 
     if (( modified + untracked + deleted + staged != 0 )); then
